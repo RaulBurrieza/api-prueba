@@ -11,11 +11,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body:Expanded(
-          child: ListView.builder(
-            itemBuilder:,
-            itemCount: , 
-          ),
+        body:Column(
+          children: [
+            SearchBar(
+            )
+          ],
         )
       ),
     );
