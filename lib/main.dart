@@ -14,6 +14,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  Future<String> token=handleRequest().getToken();
   @override
   Widget build(BuildContext context) {
     String song='';
@@ -29,7 +30,7 @@ class _MainAppState extends State<MainApp> {
               },
             ),
             const SizedBox(height: 30),
-            ElevatedButton(onPressed: ()=>handleRequest().getToken(), child: const Text("Buscar")),
+            ElevatedButton(onPressed: ()=>handleRequest().searchSong(song,token), child: const Text("Buscar")),
           ],
         )
       ),
