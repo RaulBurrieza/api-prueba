@@ -2,37 +2,45 @@ import 'package:apiprueba/handleRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  // Obtener el token de manera asíncrona
+  String token = await handleRequest().getToken();
+
+  runApp(MainApp(token: token));
 }
 
 class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+  final String token;
+
+  const MainApp({Key? key, required this.token}) : super(key: key);
 
   @override
   State<MainApp> createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
-  Future<String> token=handleRequest().getToken();
+  String song = '';
+
   @override
   Widget build(BuildContext context) {
-    String song='';
-    return  MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body:Column(
+        body: Column(
           children: [
             SearchBar(
-              onChanged:(text){ 
+              onChanged: (text) {
                 setState(() {
                   song = text;
                 });
               },
             ),
             const SizedBox(height: 30),
-            ElevatedButton(onPressed: ()=>handleRequest().searchSong(song,token), child: const Text("Buscar")),
+            ElevatedButton(
+              onPressed: () => handleRequest().searchSong(song, widget.token ),
+              child: const Text("Buscar"),
+            ),
           ],
-        )
+        ),
       ),
     );
   }
