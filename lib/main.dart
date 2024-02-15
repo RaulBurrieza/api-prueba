@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:apiprueba/handleRequest.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,47 +14,25 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  var song = 'song'; // Variable para almacenar el texto de la búsqueda
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    String song='';
+    return  MaterialApp(
       home: Scaffold(
-        body: Column(
+        body:Column(
           children: [
             SearchBar(
-              onChanged: (text) {
+              onChanged:(text){ 
                 setState(() {
-                  song = text; // Actualizar el valor de la búsqueda
-                  print(song);
+                  song = text;
                 });
               },
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(song),
-            ElevatedButton(onPressed: handleRequest().searchSong(), child: Text("Buscar")) // Usar el valor actualizado en el Text widget
+            const SizedBox(height: 30),
+            ElevatedButton(onPressed: ()=>handleRequest().getToken(), child: const Text("Buscar")),
           ],
-        ),
+        )
       ),
     );
   }
 }
-
-class SearchBar extends StatelessWidget {
-  final ValueChanged<String>? onChanged;
-
-  const SearchBar({Key? key, this.onChanged}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        hintText: 'Ingrese su búsqueda',
-      ),
-    );
-  }
-}
-
