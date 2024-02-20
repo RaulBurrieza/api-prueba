@@ -5,25 +5,8 @@ class handleRequest {
 final client_id = "8f014b27dd6542d1a3344be72948fdb7";
 final client_secret = "11f44aab63654684b1551c5220f2bf01";
 
+///////////Metodo para generar un token y poder realizar peticiones a la API/////////////////
 
-//Metodo para buscar una cancion en especifico
-Future<http.Response> searchSong(String song, String access_token) async {
-    try {
-      final uri = "https://api.spotify.com/v1/search?q=" + song + "&type=track&limit=1";
-      print(uri);
-      print(access_token);
-      var header = {"Authorization": "Bearer " + access_token};
-      print(header);
-      var response = await http.get(Uri.parse(uri), headers: header);
-        print(response.body);
-        return response;
-    }catch (error) {
-      return http.Response('{"error": "Error durante la solicitud", "details": "$error"}', 500);}
-  }
-
-
-
-//Metodo para generar un token y poder realizar peticiones a la API
 Future<String> getToken() async {
   var response = await http.post(
     Uri.parse('https://accounts.spotify.com/api/token'),
@@ -42,6 +25,24 @@ Future<String> getToken() async {
   print(token);
   return token;
 }
+
+
+////////////Metodo para buscar una cancion en especifico/////////////////
+
+Future<http.Response> searchSong(String song, String access_token) async {
+    try {
+      final uri = "https://api.spotify.com/v1/search?q=" + song + "&type=track&limit=1";
+      print(uri);
+      print(access_token);
+      var header = {"Authorization": "Bearer " + access_token};
+      print(header);
+      var response = await http.get(Uri.parse(uri), headers: header);
+        print(response.body);
+        return response;
+    }catch (error) {
+      return http.Response('{"error": "Error durante la solicitud", "details": "$error"}', 500);}
+}
+
 }
 
 

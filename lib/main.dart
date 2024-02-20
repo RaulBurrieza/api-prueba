@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 void main() async {
-  // Obtener el token de manera asíncrona
+  // Obtencion del token de manera asincrona
   String token = await handleRequest().getToken();
 
   runApp(MainApp(token: token));
