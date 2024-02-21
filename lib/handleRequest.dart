@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:apiprueba/models/song.dart';
 import 'package:http/http.dart' as http;
 class handleRequest {
 
@@ -29,19 +31,20 @@ Future<String> getToken() async {
 
 ////////////Metodo para buscar una cancion en especifico/////////////////
 
-Future<http.Response> searchSong(String song, String access_token) async {
+Future<String> searchSong(String song, String access_token) async {
     try {
       final uri = "https://api.spotify.com/v1/search?q=" + song + "&type=track&limit=1";
       print(uri);
       print(access_token);
       var header = {"Authorization": "Bearer " + access_token};
-      print(header);
       var response = await http.get(Uri.parse(uri), headers: header);
-        print(response.body);
-        return response;
+      print(response.body);
+      return response.body;
     }catch (error) {
-      return http.Response('{"error": "Error durante la solicitud", "details": "$error"}', 500);}
+      return error.toString();}
 }
+
+
 
 }
 

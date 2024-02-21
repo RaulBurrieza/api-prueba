@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:apiprueba/handleRequest.dart';
+import 'package:apiprueba/models/song.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -36,12 +39,20 @@ class _MainAppState extends State<MainApp> {
             ),
             const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () => handleRequest().searchSong(song, widget.token ),
+              onPressed: () => getSongs(),
               child: const Text("Buscar"),
             ),
           ],
         ),
       ),
     );
+  }
+
+
+  getSongs()async{
+    String data= await handleRequest().searchSong(song, widget.token);
+    print(data);
+    Song cancion = Song.fromJson(data as Map<String, dynamic>);
+    print("hola"+cancion.toString());
   }
 }
