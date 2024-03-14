@@ -31,17 +31,17 @@ Future<String> getToken() async {
 
 ////////////Metodo para buscar una cancion en especifico/////////////////
 
-Future<String> searchSong(String song, String access_token) async {
+Future<http.Response> searchSong(String song, String access_token) async {
     try {
       final uri = "https://api.spotify.com/v1/search?q=" + song + "&type=track&limit=1";
-      print(uri);
-      print(access_token);
+      //print(uri);
+      //print(access_token);
       var header = {"Authorization": "Bearer " + access_token};
       var response = await http.get(Uri.parse(uri), headers: header);
-      print(response.body);
-      return response.body;
+      //print(response.body);
+      return response;
     }catch (error) {
-      return error.toString();}
+      return http.Response("error: $error",500);}
 }
 
 

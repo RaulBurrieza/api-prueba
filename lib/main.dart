@@ -49,10 +49,12 @@ class _MainAppState extends State<MainApp> {
   }
 
 
-  getSongs()async{
-    String data= await handleRequest().searchSong(song, widget.token);
-    print(data);
-    Song cancion = Song.fromJson(data as Map<String, dynamic>);
-    print("hola"+cancion.toString());
-  }
+Future<void> getSongs() async {
+  var response = await handleRequest().searchSong(song, widget.token);
+  print("Data received: $response");
+  var data = jsonDecode(response.body);
+  Song track = Song.fromJson(data);
+  print("La cancion es : ");  
+  track.printInfo();
+}
 }
